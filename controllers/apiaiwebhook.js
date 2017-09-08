@@ -17,6 +17,10 @@ class ApiAIHandler {
 
         });
 
+        router.get('/webhook', (req,res) => {
+            res.send('get is not supported')
+        });
+        
         this.router = router;
 
     }
