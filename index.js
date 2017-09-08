@@ -36,6 +36,8 @@ const apiai = ApiAI("dd9ed8a22ddb4196aa649c9f1cd29681");
 allBot.onMessage((sessionKey,message) => {
 
   const textReceived = message.content.text;
+  const userIdChunks = message.userIdentifier.split(':');
+  const serviceId = userIdChunks[1];
 
   console.log('message',JSON.stringify(message, null, 3));  
   console.log('textReceived',textReceived);
