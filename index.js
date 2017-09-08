@@ -30,7 +30,7 @@ const configuration = require('./init');
 const allBot = new AllBot(configuration.allbot);
 const apiAIHandler = new ApiAiHandler();
 
-const apiai = ApiAI("05cb4f6a12624fc3954bafa7108c5b9b");
+const apiai = ApiAI("dd9ed8a22ddb4196aa649c9f1cd29681");
 
 // Add this
 allBot.onMessage((sessionKey,message) => {
