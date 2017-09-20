@@ -49,12 +49,9 @@ class SpikaWebhookHandler {
             
             }).then( (sendBody) => {
             
-              console.log(sendBody);
+              console.log("bot message sent",sendBody);
             
             });
-
-            console.log('spika webhook',req.body);
-            console.log('spika webhook header',req.headers);
 
         });
 
