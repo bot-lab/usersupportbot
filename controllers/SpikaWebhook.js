@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const YQL = require('yql');
-const SpikaSDK = require('./spikaSDK');
+const SpikaSDK = require('./spika');
 
 class SpikaWebhookHandler {
 
