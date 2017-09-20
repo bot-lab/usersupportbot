@@ -6,6 +6,7 @@ const AllBot = require('allbot');
 const ApiAI = require('apiai');
 
 const ApiAiHandler = require('./controllers/apiaiwebhook');
+const SpikaHandler = require('./controllers/SpikaWebhook');
 
 const rawBodySaver = function (req, res, buf, encoding) {
   if (buf && buf.length) {
@@ -29,6 +30,7 @@ app.use(function(req, res, next) {
 const configuration = require('./init');
 const allBot = new AllBot(configuration.allbot);
 const apiAIHandler = new ApiAiHandler();
+const spikaHandler = new SpikaHandler();
 
 const apiai = ApiAI("dd9ed8a22ddb4196aa649c9f1cd29681");
 
@@ -74,6 +76,7 @@ app.get('/', function (req, res) {
 
 app.use(configuration.allbot.endpointURL, allBot.router);
 app.use(configuration.allbot.endpointURL + '/apiai', apiAIHandler.router);
+app.use(configuration.allbot.endpointURL + '/spika', spikaHandler.router);
 
 app.listen(configuration.port, function () {
     console.log('Weater bot is listening on port ' + configuration.port)
