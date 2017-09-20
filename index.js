@@ -81,3 +81,4 @@ app.use(configuration.allbot.endpointURL + '/spika', spikaHandler.router);
 app.listen(configuration.port, function () {
     console.log('Weater bot is listening on port ' + configuration.port)
 })
+
