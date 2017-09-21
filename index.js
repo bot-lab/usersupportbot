@@ -43,7 +43,7 @@ allBot.onMessage((sessionKey,message) => {
   const textReceived = message.content.text;
   const userIdChunks = message.userIdentifier.split(':');
   const serviceId = userIdChunks[1];
-  const userId = userIdChunks[2];
+  let userId = userIdChunks[2];
 
   console.log("sessionKey",sessionKey);
 
