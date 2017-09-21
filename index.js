@@ -44,9 +44,9 @@ allBot.onMessage((sessionKey,message) => {
   const userIdChunks = message.userIdentifier.split(':');
   const serviceId = userIdChunks[1];
   const userId = userIdChunks[2];
-
+  if(userIdChunks[3])
+    
   console.log(message);
-  
   console.log('message',JSON.stringify(message, null, 3));  
   console.log('textReceived',textReceived);
 
@@ -57,7 +57,7 @@ allBot.onMessage((sessionKey,message) => {
     SpikaSDK.signinAsGuest(
         init.spika.org,
         message.userIdentifier,
-        userId,(statusCode,body) => {
+        message.userIdentifier,(statusCode,body) => {
         
       if(statusCode == 200){
         fulfill(body);
