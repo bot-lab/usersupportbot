@@ -45,6 +45,8 @@ allBot.onMessage((sessionKey,message) => {
   const serviceId = userIdChunks[1];
   const userId = userIdChunks[2];
 
+  console.log(message);
+  
   console.log('message',JSON.stringify(message, null, 3));  
   console.log('textReceived',textReceived);
 
