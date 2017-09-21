@@ -37,6 +37,8 @@ const spikaHandler = new SpikaHandler();
 
 const apiai = ApiAI("dd9ed8a22ddb4196aa649c9f1cd29681");
 
+global.skypePool = {};
+
 // Add this
 allBot.onMessage((sessionKey,message) => {
 
@@ -56,11 +58,9 @@ allBot.onMessage((sessionKey,message) => {
     console.log(skypeUserObj);
     userId = skypeUserObj.user.id;
 
+    global.skypePool[userId] = message.userIdentifier;
+    
   }
-
-  console.log(message);
-  console.log('message',JSON.stringify(message, null, 3));  
-  console.log('textReceived',textReceived);
 
   SpikaSDK.init(init.spika.url,init.spika.apiKey);
   
@@ -68,8 +68,8 @@ allBot.onMessage((sessionKey,message) => {
   
     SpikaSDK.signinAsGuest(
         init.spika.org,
-        message.userIdentifier,
-        message.userIdentifier,(statusCode,body) => {
+        userId,
+        userId,(statusCode,body) => {
         
       if(statusCode == 200){
         fulfill(body);

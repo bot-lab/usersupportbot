@@ -17,7 +17,7 @@ class SpikaWebhookHandler {
 
             const fromUser = params.receiver.userid;
 
-            global.allbot.sendText(params.receiver.userid,
+            global.allbot.sendText(global.skypePool[params.receiver.userid],
                 params.message.message,(result) => {
 
                     console.log("send to messenger",result);
