@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const YQL = require('yql');
+const AllBot = require('allbot');
 
 const SpikaSDK = require('../spika');
 const init = require('../init');
@@ -13,7 +14,16 @@ class SpikaWebhookHandler {
             
             const params = req.body;
             console.log("spika webhook",params);
-            
+
+            const fromUser = params.receiver.userid;
+
+            global.allbot.sendText(params.receiver.userid,
+                params.message.message,(result) => {
+
+                    console.log("send to messenger",result);
+
+                });
+
 
         });
 
