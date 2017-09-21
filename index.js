@@ -44,8 +44,9 @@ allBot.onMessage((sessionKey,message) => {
   const userIdChunks = message.userIdentifier.split(':');
   const serviceId = userIdChunks[1];
   const userId = userIdChunks[2];
-  if(userIdChunks[3])
-  
+
+  console.log(userId);
+
   if(userIdChunks[0] == 'skype'){
 
     const skypeUserIdJson = JSON.parse(userId);
