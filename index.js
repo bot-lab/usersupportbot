@@ -93,7 +93,7 @@ allBot.onMessage((sessionKey,message) => {
 
 });
 
-global.allbot = allbot;
+global.allbot = allBot;
 
 app.get('/', function (req, res) {
   res.send('clover bot top')
