@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const YQL = require('yql');
+
 const SpikaSDK = require('../spika');
+const init = require('../init');
 
 class SpikaWebhookHandler {
 
@@ -18,11 +20,14 @@ class SpikaWebhookHandler {
 
             const groupId = params.group.id;
 
-            SpikaSDK.init("https://spika.chat/api/v3","GMUwQIHielm7b1ZQNNJYMAfCC508Giof");
+            SpikaSDK.init(init.spika.url,init.spika.apiKey);
             
             const promise = new Promise((fulfill, reject) => {
             
-              SpikaSDK.signin("clover","cloverrobot","password",(statusCode,body) => {
+              SpikaSDK.signin(
+                  init.spika.org,
+                  init.spika.user,
+                  init.spika.password,(statusCode,body) => {
                   
                 if(statusCode == 200){
                   fulfill(body);
@@ -35,15 +40,18 @@ class SpikaWebhookHandler {
             
               return new Promise((fulfill,reject) => {
             
-                SpikaSDK.sendMessage(2,groupId,1,"kaj ?",null,(statusCode,body) => {
-            
-                  if(statusCode == 200){
-                    fulfill(body);
-                  }else{
-                    reject(body);
-                  }
-                  
-                });
+                setTimeout(() => {
+
+                    SpikaSDK.sendMessage(2,groupId,1,"kaj ?",null,(statusCode,body) => {
+                
+                        if(statusCode == 200){
+                            fulfill(body);
+                        }else{
+                            reject(body);
+                        }
+                        
+                    });
+                },3000);
             
               });
             

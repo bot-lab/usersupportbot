@@ -5,6 +5,8 @@ const router = express.Router();
 const AllBot = require('allbot');
 const ApiAI = require('apiai');
 
+const SpikaSDK = require('./spika');
+
 const ApiAiHandler = require('./controllers/apiaiwebhook');
 const SpikaHandler = require('./controllers/SpikaWebhook');
 
@@ -40,33 +42,51 @@ allBot.onMessage((sessionKey,message) => {
   const textReceived = message.content.text;
   const userIdChunks = message.userIdentifier.split(':');
   const serviceId = userIdChunks[1];
+  const userId = userIdChunks[2];
 
   console.log('message',JSON.stringify(message, null, 3));  
   console.log('textReceived',textReceived);
 
-  requestApiAI = apiai.textRequest(textReceived, {
-    sessionId: userIdChunks[2]
+  SpikaSDK.init(init.spika.url,init.spika.apiKey);
+  
+  const promise = new Promise((fulfill, reject) => {
+  
+    SpikaSDK.signinAsGuest(
+        init.spika.org,
+        message.userIdentifier,
+        userId,(statusCode,body) => {
+        
+      if(statusCode == 200){
+        fulfill(body);
+      }else{
+        reject(body);
+      }
+    });
+  
+  }).then((signinBody) => {
+  
+    return new Promise((fulfill,reject) => {
+  
+      setTimeout(() => {
+
+          SpikaSDK.sendMessage(1,init.spika.supportuserid,1,textReceived,null,(statusCode,body) => {
+      
+              if(statusCode == 200){
+                  fulfill(body);
+              }else{
+                  reject(body);
+              }
+              
+          });
+      },3000);
+  
+    });
+  
+  }).then( (sendBody) => {
+  
+    console.log("bot message sent",sendBody);
+  
   });
-
-  requestApiAI.on('response', function(response) {
-
-    console.log('API AI response',JSON.stringify(response, null, 3));
-
-    const replyFromAI = response.result.fulfillment.speech;
-
-    if(replyFromAI && replyFromAI.length > 0)
-      allBot.replyText(sessionKey,response.result.fulfillment.speech);
-    else
-      allBot.replyText(sessionKey,"Sorry cannot process your message.");
-
-  });
-
-  requestApiAI.on('error', function(error) {
-    console.log(error);
-    allBot.replyText(sessionKey,"Sorry please send again.");
-  });
-
-  requestApiAI.end();
 
 });
 
