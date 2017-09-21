@@ -54,7 +54,7 @@ allBot.onMessage((sessionKey,message) => {
 
     console.log(skypeUserIdJson);
     console.log(skypeUserObj);
-    userId = skypeUserObj.from.id;
+    userId = skypeUserObj.user.id;
 
   }
 
