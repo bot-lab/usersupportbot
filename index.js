@@ -6,6 +6,7 @@ const AllBot = require('allbot');
 const ApiAI = require('apiai');
 
 const SpikaSDK = require('./spika');
+const init = require('./init');
 
 const ApiAiHandler = require('./controllers/apiaiwebhook');
 const SpikaHandler = require('./controllers/SpikaWebhook');
